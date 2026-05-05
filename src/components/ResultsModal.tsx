@@ -1,4 +1,5 @@
 import type { QuizScore, QuizAnswer } from '../types/quiz';
+import { formatDate } from '../utils/formatDate';
 import { useState } from 'react';
 import AnswersModal from './AnswersModal';
 import { useEscapeKey } from '../hooks/useEscapeKey';
@@ -67,15 +68,7 @@ export default function ResultsModal({
                         %)
                       </p>
                     )}
-                    <p className="text-sm mt-1">
-                      {new Date(entry.date).toLocaleString(undefined, {
-                        day: 'numeric',
-                        month: 'short',
-                        year: 'numeric',
-                        hour: '2-digit',
-                        minute: '2-digit',
-                      })}
-                    </p>
+                    <p className="text-sm mt-1">{formatDate(entry.date)}</p>
                   </div>
 
                   {entry.answers && entry.answers.length > 0 && (
