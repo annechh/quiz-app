@@ -32,7 +32,7 @@ export default function QuizCard({
 
       <div className="h-px bg-[#4f4f4f]"></div>
 
-      <div className="flex flex-col flex-1/2 justify-between h-full bg-pink-300/20">
+      <div className="flex flex-col flex-1/2 justify-between h-full">
         {latestScore ? (
           <div className="text-sm text-gray-200 pt-4 space-y-1">
             <p>
