@@ -60,39 +60,3 @@ export default function QuizCard({
     </article>
   );
 }
-
-{
-  /* <article className="text-left bg-dark-grey border border-[#494949] rounded-3xl p-6 shadow-xl hover:test hover:shadow-pink transition-all">
-      <p className="text-sm text-pink-300 font-semibold mb-3">
-        {quiz.questions.length} questions
-      </p>
-      <h2 className="text-2xl font-bold mb-3">{quiz.title}</h2>
-      <p className="text-gray-300 pb-4 border-b border-[#4f4f4f]">
-        {quiz.description}
-      </p>
-
-      {latestScore ? (
-        <div className="text-sm text-gray-200 pt-4 space-y-1">
-          <p>
-            Latest score: {latestScore.score}/{latestScore.totalQuestions}
-          </p>
-          <p>Best result: {bestPercentage}%</p>
-          <p className="text-gray-400">Attempts: {scores.length}</p>
-        </div>
-      ) : (
-        <p className="text-sm text-gray-500 pt-4">No attempts yet</p>
-      )}
-
-      <div className="mt-auto flex items-center gap-3">
-        <button onClick={onStart} className="primary-button">
-          Start quiz
-        </button>
-
-        {scores.length > 1 && (
-          <button onClick={onShowResults} className="results-button">
-            View all Results
-          </button>
-        )}
-      </div>
-    </article> */
-}
