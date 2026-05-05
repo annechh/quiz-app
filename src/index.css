@@ -1,0 +1,133 @@
+@import 'tailwindcss';
+
+@theme {
+  /* DarkMode */
+  --color-background: #252525;
+  --color-dark-grey: #2e2e2e;
+  --color-light-grey: #383838;
+
+  --color-green_1: #15803d;
+  --color-green_2: #166534;
+
+  --color-red_dark: #bd3535;
+
+  --shadow-pink: 0 5px 10px rgba(235, 165, 214, 0.2);
+
+  /* LightMode */
+  --color-purple_light_1: #ce88d8;
+  --color-purple_light_2: #e168f2;
+
+  --color-green_light: #5bcd6c;
+  --color-red_light: #ff5959;
+}
+
+body {
+  background-color: var(--color-background);
+}
+
+.primary-button {
+  @apply bg-green_1 hover:bg-green_2 text-white font-semibold py-3 px-8 rounded-full transition-colors cursor-pointer;
+}
+
+.not-allowed-button {
+  @apply bg-gray-600 text-gray-400 py-3 px-8 rounded-full cursor-not-allowed;
+}
+
+.results-button {
+  @apply bg-transparent border border-gray-500 hover:border-pink-300 hover:text-pink-300 text-gray-200 text-sm font-semibold px-4 py-2 rounded-full transition-colors cursor-pointer;
+}
+
+.quiz-next-scale {
+  animation: next-button-scale 4000ms ease-out infinite;
+}
+
+.confetti-overlay {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  overflow: hidden;
+  z-index: 0;
+}
+
+.confetti-piece {
+  position: absolute;
+  top: -12vh;
+  animation-name: confetti-fall, confetti-shimmer;
+  animation-timing-function: linear, ease-in-out;
+  animation-iteration-count: infinite;
+  animation-direction: normal, alternate;
+  will-change: transform, opacity;
+}
+
+.confetti-inner {
+  display: block;
+  border-radius: 2px;
+  opacity: 0.9;
+  animation-name: confetti-spin;
+  animation-timing-function: linear;
+  animation-iteration-count: infinite;
+  animation-direction: alternate;
+}
+
+@keyframes confetti-fall {
+  0% {
+    transform: translate3d(0, -10vh, 0);
+  }
+
+  25% {
+    transform: translate3d(8px, 20vh, 0);
+  }
+
+  50% {
+    transform: translate3d(-8px, 50vh, 0);
+  }
+
+  75% {
+    transform: translate3d(10px, 80vh, 0);
+  }
+
+  100% {
+    transform: translate3d(-6px, 110vh, 0);
+  }
+}
+
+@keyframes confetti-shimmer {
+  0% {
+    opacity: 0.35;
+    filter: brightness(0.85);
+  }
+
+  50% {
+    opacity: 0.95;
+    filter: brightness(1.15);
+  }
+
+  100% {
+    opacity: 0.4;
+    filter: brightness(0.9);
+  }
+}
+
+@keyframes confetti-spin {
+  0% {
+    transform: rotate(0deg);
+  }
+
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes next-button-scale {
+  0% {
+    transform: scale(1);
+  }
+
+  45% {
+    transform: scale(1.1);
+  }
+
+  100% {
+    transform: scale(1);
+  }
+}
