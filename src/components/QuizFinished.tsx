@@ -47,20 +47,13 @@ export default function QuizFinished({
         </p>
         <h2 className="text-3xl font-bold mb-8">Quiz completed!</h2>
 
-        <ScoreCircle
-          score={score}
-          totalQuestions={totalQuestions}
-          percentage={percentage}
-        />
+        <div className="mt-8 flex flex-col justify-center gap-5">
+          <ScoreCircle
+            score={score}
+            totalQuestions={totalQuestions}
+            percentage={percentage}
+          />
 
-        <div className="mt-8 flex justify-center gap-3">
-          <motion.button
-            onClick={onBack}
-            className="bg-[#3a3a3a] hover:bg-[#4a4a4a] text-white font-semibold py-3 px-6 rounded-full transition-colors cursor-pointer"
-            whileTap={{ scale: 0.98 }}
-          >
-            Home
-          </motion.button>
           <motion.button
             onClick={onRestart}
             className="primary-button"
@@ -68,26 +61,37 @@ export default function QuizFinished({
           >
             Start over
           </motion.button>
-        </div>
-
-        {answers.length > 0 && (
-          <div className="mt-8 pt-8 border-t border-[#555] flex justify-center gap-3">
+          <div className="flex flex-col gap-3">
+            <p>Review your answers and results:</p>
+            {answers.length > 0 && (
+              <div className=" flex justify-center gap-3">
+                <motion.button
+                  onClick={() => setShowAnswersModal(true)}
+                  className="results-button py-2 text-sm"
+                  whileTap={{ scale: 0.98 }}
+                >
+                  Answers
+                </motion.button>
+                <motion.button
+                  onClick={() => setShowResultsModal(true)}
+                  className="results-button py-2 text-sm"
+                  whileTap={{ scale: 0.98 }}
+                >
+                  Results
+                </motion.button>
+              </div>
+            )}
+          </div>
+          <div className="flex w-full justify-start">
             <motion.button
-              onClick={() => setShowAnswersModal(true)}
-              className="results-button py-2 text-sm"
+              onClick={onBack}
+              className="text-sm text-gray-400 hover:text-white transition-colors cursor-pointer"
               whileTap={{ scale: 0.98 }}
             >
-              Answers
-            </motion.button>
-            <motion.button
-              onClick={() => setShowResultsModal(true)}
-              className="results-button py-2 text-sm"
-              whileTap={{ scale: 0.98 }}
-            >
-              Results
+              Back home
             </motion.button>
           </div>
-        )}
+        </div>
 
         <AnimatePresence mode="wait">
           {showAnswersModal && (
