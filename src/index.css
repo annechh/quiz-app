@@ -34,7 +34,7 @@ body {
 }
 
 .results-button {
-  @apply bg-transparent border border-gray-500 hover:border-pink-300 hover:text-pink-300 text-gray-200 font-semibold px-4 rounded-full transition-colors cursor-pointer;
+  @apply bg-light-grey hover:bg-pink-300 hover:text-dark-grey text-gray-200 font-semibold px-4 rounded-full transition-colors cursor-pointer;
 }
 
 .next-quiz-shake {
