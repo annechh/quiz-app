@@ -107,7 +107,7 @@ export default function Quiz({ quiz, onBack }: QuizProps) {
           <div
             className="bg-green_1 h-2 rounded-full transition-all duration-300"
             style={{
-              width: `${(currentIndex / quiz.questions.length) * 100}%`,
+              width: `${((currentIndex + (isAnswered ? 1 : 0)) / quiz.questions.length) * 100}%`,
             }}
           />
         </div>
