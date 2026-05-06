@@ -4,6 +4,7 @@ import { AnimatePresence, motion } from 'framer-motion';
 import Confetti from './Confetti';
 import AnswersModal from './AnswersModal';
 import ResultsModal from './ResultsModal';
+import ScoreCircle from './ScoreCircle';
 
 interface QuizFinishedProps {
   title: string;
@@ -44,21 +45,15 @@ export default function QuizFinished({
         <p className="text-sm uppercase tracking-[0.25em] text-gray-400 mb-3">
           {title}
         </p>
-        <h2 className="text-3xl font-bold mb-4">Quiz completed!</h2>
-        <p className="text-xl mb-6">
-          You got <span className="text-green-400 font-bold">{score}</span> out
-          of <span className="font-bold">{totalQuestions}</span> correct
-        </p>
-        <p className="text-lg mb-6 text-gray-300">
-          Score:{' '}
-          {percentage === 100 ? (
-            <span className="text-green-400 font-bold">{percentage}%</span>
-          ) : (
-            <span className="text-blue-400 font-semibold">{percentage}%</span>
-          )}
-        </p>
+        <h2 className="text-3xl font-bold mb-8">Quiz completed!</h2>
 
-        <div className="flex justify-center gap-3">
+        <ScoreCircle
+          score={score}
+          totalQuestions={totalQuestions}
+          percentage={percentage}
+        />
+
+        <div className="mt-8 flex justify-center gap-3">
           <motion.button
             onClick={onBack}
             className="bg-[#3a3a3a] hover:bg-[#4a4a4a] text-white font-semibold py-3 px-6 rounded-full transition-colors cursor-pointer"
@@ -75,8 +70,8 @@ export default function QuizFinished({
           </motion.button>
         </div>
 
-        {allScores.length > 1 && (
-          <div className="mt-8 pt-8 border-t border-[#555] flex justify-center flex-wrap gap-3">
+        {answers.length > 0 && (
+          <div className="mt-8 pt-8 border-t border-[#555] flex justify-center gap-3">
             <motion.button
               onClick={() => setShowAnswersModal(true)}
               className="results-button py-2 text-sm"
@@ -90,18 +85,6 @@ export default function QuizFinished({
               whileTap={{ scale: 0.98 }}
             >
               Results
-            </motion.button>
-          </div>
-        )}
-
-        {allScores.length === 1 && answers.length > 0 && (
-          <div className="mt-8 pt-8 border-t border-[#555] flex justify-center">
-            <motion.button
-              onClick={() => setShowAnswersModal(true)}
-              className="results-button py-2 text-sm"
-              whileTap={{ scale: 0.98 }}
-            >
-              Answers
             </motion.button>
           </div>
         )}
