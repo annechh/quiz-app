@@ -86,7 +86,7 @@ export default function ResultsModal({
                         className="results-button py-2 text-sm"
                         whileTap={{ scale: 0.98 }}
                       >
-                        View answers
+                        Answers
                       </motion.button>
                     )}
                   </div>

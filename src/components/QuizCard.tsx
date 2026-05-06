@@ -64,7 +64,7 @@ export default function QuizCard({
               className="results-button py-3"
               whileTap={{ scale: 0.98 }}
             >
-              View all Results
+              Results
             </motion.button>
           )}
         </div>

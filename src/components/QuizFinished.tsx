@@ -64,7 +64,7 @@ export default function QuizFinished({
             className="bg-[#3a3a3a] hover:bg-[#4a4a4a] text-white font-semibold py-3 px-6 rounded-full transition-colors cursor-pointer"
             whileTap={{ scale: 0.98 }}
           >
-            Back to overview
+            Home
           </motion.button>
           <motion.button
             onClick={onRestart}
@@ -82,14 +82,14 @@ export default function QuizFinished({
               className="results-button py-2 text-sm"
               whileTap={{ scale: 0.98 }}
             >
-              View Answers
+              Answers
             </motion.button>
             <motion.button
               onClick={() => setShowResultsModal(true)}
               className="results-button py-2 text-sm"
               whileTap={{ scale: 0.98 }}
             >
-              View all Results
+              Results
             </motion.button>
           </div>
         )}
@@ -101,7 +101,7 @@ export default function QuizFinished({
               className="results-button py-2 text-sm"
               whileTap={{ scale: 0.98 }}
             >
-              View Answers
+              Answers
             </motion.button>
           </div>
         )}
