@@ -62,7 +62,7 @@ export default function ResultsModal({
                   key={`${entry.date}-${index}`}
                   className="border border-[#555] rounded-xl px-4 py-3"
                 >
-                  <div className="flex flex-wrap items-center justify-between gap-3">
+                  <div className="flex items-center justify-between gap-3">
                     <div>
                       {entry.percentage === 100 ? (
                         <p className="font-semibold text-green-400">
