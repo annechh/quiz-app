@@ -58,7 +58,7 @@ export default function QuizCard({
             Start quiz
           </motion.button>
 
-          {scores.length > 1 && (
+          {scores.length > 0 && (
             <motion.button
               onClick={onShowResults}
               className="results-button py-3"
