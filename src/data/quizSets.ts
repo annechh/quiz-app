@@ -1,17 +1,8 @@
-import type { QuizQuestion, QuizSet } from '../types/quiz';
+import type { QuizSet } from '../types/quiz';
 import { codeQuizData } from './quizQuestions/code';
 import { disneyQuizData } from './quizQuestions/disney';
 import { popQuizData } from './quizQuestions/popQuiz';
 import { norwayQuizData } from './quizQuestions/norway';
-
-export const testQuizData: QuizQuestion[] = [
-  {
-    id: 1,
-    question: 'Test question: 2 + 2 = ?',
-    options: ['3', '4', '5', '6'],
-    correctAnswer: 1,
-  },
-];
 
 export const quizSets: QuizSet[] = [
   {
@@ -37,11 +28,5 @@ export const quizSets: QuizSet[] = [
     title: 'Disney Quiz',
     description: 'A quiz about Disney movies and characters.',
     questions: disneyQuizData,
-  },
-  {
-    id: 'test',
-    title: 'Test Quiz',
-    description: 'Single-question quiz for quick testing.',
-    questions: testQuizData,
   },
 ];
