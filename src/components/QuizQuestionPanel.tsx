@@ -83,7 +83,6 @@ export default function QuizQuestionPanel({
                   animate={{ opacity: 1, y: 0 }}
                   exit={{ opacity: 0, y: -10 }}
                   transition={{ delay: index * 0.06 }}
-                  whileTap={isAnswered ? undefined : { scale: 0.98 }}
                 >
                   {option}
                 </motion.li>
@@ -94,27 +93,24 @@ export default function QuizQuestionPanel({
       </AnimatePresence>
 
       <div className="flex justify-end">
-        <motion.button
+        <button
           onClick={onNext}
           disabled={!isAnswered}
-          whileTap={isAnswered ? { scale: 0.98 } : undefined}
-          transition={{ duration: 0.25 }}
           className={
             isAnswered ? 'primary-button next-quiz-shake' : 'not-allowed-button'
           }
         >
           {isLast ? 'Finish' : 'Next'}
-        </motion.button>
+        </button>
       </div>
 
       <div className="mt-4 flex justify-start">
-        <motion.button
+        <button
           onClick={onBack}
           className="text-sm text-gray-400 hover:text-white transition-colors cursor-pointer"
-          whileTap={{ scale: 0.98 }}
         >
           Back home
-        </motion.button>
+        </button>
       </div>
     </div>
   );

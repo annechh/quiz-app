@@ -52,20 +52,15 @@ export default function ConfirmActionModal({
             <p className="text-gray-300 mb-6">{message}</p>
 
             <div className="flex justify-end gap-3">
-              <motion.button
+              <button
                 onClick={onCancel}
                 className="bg-red_dark hover:bg-[#AC2C2C] text-white font-semibold py-3 px-8 rounded-full transition-colors cursor-pointer"
-                whileTap={{ scale: 0.98 }}
               >
                 {cancelText}
-              </motion.button>
-              <motion.button
-                onClick={onConfirm}
-                className="primary-button"
-                whileTap={{ scale: 0.98 }}
-              >
+              </button>
+              <button onClick={onConfirm} className="primary-button">
                 {confirmText}
-              </motion.button>
+              </button>
             </div>
           </motion.div>
         </motion.div>

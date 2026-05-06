@@ -1,6 +1,5 @@
 import type { QuizSet } from '../types/quiz';
 import { useQuizHistory } from '../hooks/useQuizHistory';
-import { motion } from 'framer-motion';
 
 interface QuizCardProps {
   quiz: QuizSet;
@@ -50,22 +49,14 @@ export default function QuizCard({
         )}
 
         <div className="mt-auto flex items-center gap-3">
-          <motion.button
-            onClick={onStart}
-            className="primary-button"
-            whileTap={{ scale: 0.98 }}
-          >
+          <button onClick={onStart} className="primary-button">
             Start quiz
-          </motion.button>
+          </button>
 
           {scores.length > 0 && (
-            <motion.button
-              onClick={onShowResults}
-              className="results-button py-3"
-              whileTap={{ scale: 0.98 }}
-            >
+            <button onClick={onShowResults} className="results-button py-3">
               Results
-            </motion.button>
+            </button>
           )}
         </div>
       </div>

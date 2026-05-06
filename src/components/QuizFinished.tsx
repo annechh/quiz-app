@@ -54,45 +54,35 @@ export default function QuizFinished({
             percentage={percentage}
           />
 
-          <motion.button
-            onClick={onRestart}
-            className="primary-button"
-            whileTap={{ scale: 0.98 }}
-          >
+          <button onClick={onRestart} className="primary-button">
             Start over
-          </motion.button>
+          </button>
           <div className="flex flex-col gap-3">
             <p>Review your answers and results:</p>
-            {answers.length > 0 && (
-              <div className=" flex justify-center gap-3">
-                <motion.button
-                  onClick={() => setShowAnswersModal(true)}
-                  className="results-button py-2 text-sm"
-                  whileTap={{ scale: 0.98 }}
-                >
-                  Answers
-                </motion.button>
-                <motion.button
-                  onClick={() => setShowResultsModal(true)}
-                  className="results-button py-2 text-sm"
-                  whileTap={{ scale: 0.98 }}
-                >
-                  Results
-                </motion.button>
-              </div>
-            )}
+            <div className=" flex justify-center gap-3">
+              <button
+                onClick={() => setShowAnswersModal(true)}
+                className="results-button py-2 text-sm"
+              >
+                Answers
+              </button>
+              <button
+                onClick={() => setShowResultsModal(true)}
+                className="results-button py-2 text-sm"
+              >
+                Results
+              </button>
+            </div>
           </div>
           <div className="flex w-full justify-start">
-            <motion.button
+            <button
               onClick={onBack}
               className="text-sm text-gray-400 hover:text-white transition-colors cursor-pointer"
-              whileTap={{ scale: 0.98 }}
             >
               Back home
-            </motion.button>
+            </button>
           </div>
         </div>
-
         <AnimatePresence mode="wait">
           {showAnswersModal && (
             <AnswersModal

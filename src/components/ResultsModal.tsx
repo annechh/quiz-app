@@ -42,13 +42,12 @@ export default function ResultsModal({
               </p>
               <h3 className="text-2xl font-bold">{title}</h3>
             </div>
-            <motion.button
+            <button
               onClick={onClose}
               className="text-gray-300 hover:text-white transition-colors cursor-pointer"
-              whileTap={{ scale: 0.98 }}
             >
               Close
-            </motion.button>
+            </button>
           </div>
 
           <ul className="max-h-[60vh] overflow-y-auto space-y-3 pr-1">
@@ -81,13 +80,12 @@ export default function ResultsModal({
                     </div>
 
                     {entry.answers && entry.answers.length > 0 && (
-                      <motion.button
+                      <button
                         onClick={() => setViewingAnswers(entry.answers!)}
                         className="results-button py-2 text-sm"
-                        whileTap={{ scale: 0.98 }}
                       >
                         Answers
-                      </motion.button>
+                      </button>
                     )}
                   </div>
                 </li>
