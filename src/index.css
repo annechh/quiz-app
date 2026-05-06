@@ -5,20 +5,11 @@
   --color-background: #252525;
   --color-dark-grey: #2e2e2e;
   --color-light-grey: #383838;
-
   --color-green_1: #15803d;
   --color-green_2: #166534;
-
   --color-red_dark: #bd3535;
 
-  --shadow-pink: 0 5px 10px rgba(235, 165, 214, 0.2);
-
-  /* LightMode */
-  --color-purple_light_1: #ce88d8;
-  --color-purple_light_2: #e168f2;
-
-  --color-green_light: #5bcd6c;
-  --color-red_light: #ff5959;
+  --shadow-pink: 0 2px 15px rgba(235, 165, 214, 0.15);
 }
 
 body {
