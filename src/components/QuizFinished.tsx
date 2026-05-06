@@ -1,6 +1,7 @@
 import type { QuizScore, QuizAnswer } from '../types/quiz';
 import { useState } from 'react';
 import { AnimatePresence, motion } from 'framer-motion';
+import BrandHeader from './BrandHeader';
 import Confetti from './Confetti';
 import AnswersModal from './AnswersModal';
 import ResultsModal from './ResultsModal';
@@ -32,6 +33,7 @@ export default function QuizFinished({
 
   return (
     <div className="relative isolate overflow-hidden flex flex-col items-center justify-center min-h-screen text-white p-6">
+      <BrandHeader />
       {hasPerfectScore && <Confetti />}
 
       <motion.div
@@ -42,7 +44,7 @@ export default function QuizFinished({
         exit={{ opacity: 0 }}
         transition={{ duration: 0.5 }}
       >
-        <p className="text-sm uppercase tracking-[0.25em] text-gray-400 mb-3">
+        <p className="text-xs uppercase tracking-[0.25em] text-gray-400 mb-3">
           {title}
         </p>
         <h2 className="text-3xl font-bold mb-8">Quiz completed!</h2>

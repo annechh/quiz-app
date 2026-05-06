@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import BrandHeader from './BrandHeader';
 import QuizFinished from './QuizFinished';
 import ConfirmActionModal from './ConfirmActionModal';
 import QuizQuestionPanel from './QuizQuestionPanel';
@@ -109,6 +110,7 @@ export default function Quiz({ quiz, onBack }: QuizProps) {
 
   return (
     <>
+      <BrandHeader />
       <motion.div
         className="flex flex-col items-center justify-center min-h-screen text-white p-6"
         initial={{ opacity: 0 }}
