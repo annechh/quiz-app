@@ -2,6 +2,7 @@ import { useState } from 'react';
 import QuizFinished from './QuizFinished';
 import type { QuizSet, QuizScore, QuizAnswer } from '../types/quiz';
 import { useQuizHistory } from '../hooks/useQuizHistory';
+import { AnimatePresence, motion } from 'framer-motion';
 
 interface QuizProps {
   quiz: QuizSet;
@@ -85,7 +86,13 @@ export default function Quiz({ quiz, onBack }: QuizProps) {
   }
 
   return (
-    <div className="flex flex-col items-center justify-center min-h-screen text-white p-6">
+    <motion.div
+      className="flex flex-col items-center justify-center min-h-screen text-white p-6"
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      transition={{ duration: 1 }}
+      exit={{ opacity: 0 }}
+    >
       <div className="bg-dark-grey rounded-2xl p-8 max-w-lg w-full shadow-xl">
         {/* Progress */}
         <div className="flex justify-between text-sm text-gray-400 mb-4">
@@ -105,65 +112,84 @@ export default function Quiz({ quiz, onBack }: QuizProps) {
           />
         </div>
 
-        {/* Question */}
-        <div>
-          <h2 className="text-xl font-semibold mb-6">{question.question}</h2>
-          {question.image && (
-            <img
-              src={question.image}
-              alt="quiz image"
-              className="w-full h-auto mb-6 rounded-xl"
-            />
-          )}
-        </div>
+        <AnimatePresence mode="wait">
+          <motion.div
+            key={currentIndex}
+            initial={{ opacity: 0, y: 16 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -16 }}
+          >
+            {/* Question */}
+            <div>
+              <h2 className="text-xl font-semibold mb-6">
+                {question.question}
+              </h2>
+              {question.image && (
+                <img
+                  src={question.image}
+                  alt="quiz image"
+                  className="w-full h-auto mb-6 rounded-xl"
+                />
+              )}
+            </div>
 
-        {/* Options */}
-        <ul className="flex flex-col gap-3 mb-8">
-          {question.options.map((option, index) => {
-            const style = isAnswered
-              ? index === question.correctAnswer
-                ? 'border-2 border-green_1 cursor-default'
-                : index === selectedOption
-                  ? 'border-2 border-red_dark cursor-default'
-                  : 'border-2 border-[#555] bg-light-grey opacity-40 cursor-default'
-              : 'border-2 border-[#555] bg-light-grey hover:bg-[#424242] cursor-pointer';
+            {/* Options */}
+            <ul className="flex flex-col gap-3 mb-8">
+              {question.options.map((option, index) => {
+                const style = isAnswered
+                  ? index === question.correctAnswer
+                    ? 'border-2 border-green_1 cursor-default'
+                    : index === selectedOption
+                      ? 'border-2 border-red_dark cursor-default'
+                      : 'border-2 border-[#555] bg-light-grey opacity-40 cursor-default'
+                  : 'border-2 border-[#555] bg-light-grey hover:bg-[#424242] cursor-pointer';
 
-            return (
-              <li
-                key={index}
-                onClick={() => handleSelect(index)}
-                className={`rounded-xl px-4 py-3 transition-colors select-none ${style}`}
-              >
-                {option}
-              </li>
-            );
-          })}
-        </ul>
+                return (
+                  <motion.li
+                    key={`${currentIndex}-${index}`}
+                    onClick={isAnswered ? undefined : () => handleSelect(index)}
+                    className={`rounded-xl px-4 py-3 transition-colors select-none ${style}`}
+                    initial={{ opacity: 0, y: 10 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    exit={{ opacity: 0, y: -10 }}
+                    transition={{ delay: index * 0.06 }}
+                    whileTap={isAnswered ? undefined : { scale: 0.98 }}
+                  >
+                    {option}
+                  </motion.li>
+                );
+              })}
+            </ul>
+          </motion.div>
+        </AnimatePresence>
 
         {/* Next button */}
         <div className="flex justify-end">
-          <button
+          <motion.button
             onClick={handleNext}
             disabled={!isAnswered}
+            whileTap={isAnswered ? { scale: 0.98 } : undefined}
+            transition={{ duration: 0.25 }}
             className={
               isAnswered
-                ? 'primary-button quiz-next-scale'
+                ? 'primary-button next-quiz-shake'
                 : 'not-allowed-button'
             }
           >
             {isLast ? 'See results' : 'Next'}
-          </button>
+          </motion.button>
         </div>
 
         <div className="mt-4 flex justify-start">
-          <button
+          <motion.button
             onClick={onBack}
             className="text-sm text-gray-400 hover:text-white transition-colors cursor-pointer"
+            whileTap={{ scale: 0.98 }}
           >
             Back to overview
-          </button>
+          </motion.button>
         </div>
       </div>
-    </div>
+    </motion.div>
   );
 }

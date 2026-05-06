@@ -1,5 +1,6 @@
 import type { QuizScore, QuizAnswer } from '../types/quiz';
 import { useState } from 'react';
+import { AnimatePresence, motion } from 'framer-motion';
 import Confetti from './Confetti';
 import AnswersModal from './AnswersModal';
 import ResultsModal from './ResultsModal';
@@ -32,7 +33,14 @@ export default function QuizFinished({
     <div className="relative isolate overflow-hidden flex flex-col items-center justify-center min-h-screen text-white p-6">
       {hasPerfectScore && <Confetti />}
 
-      <div className="relative z-10 bg-dark-grey rounded-2xl p-8 max-w-lg w-full text-center shadow-xl">
+      <motion.div
+        key="finished"
+        className="relative z-10 bg-dark-grey rounded-2xl p-8 max-w-lg w-full text-center shadow-xl"
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        exit={{ opacity: 0 }}
+        transition={{ duration: 0.5 }}
+      >
         <p className="text-sm uppercase tracking-[0.25em] text-gray-400 mb-3">
           {title}
         </p>
@@ -51,61 +59,73 @@ export default function QuizFinished({
         </p>
 
         <div className="flex justify-center gap-3">
-          <button
+          <motion.button
             onClick={onBack}
             className="bg-[#3a3a3a] hover:bg-[#4a4a4a] text-white font-semibold py-3 px-6 rounded-full transition-colors cursor-pointer"
+            whileTap={{ scale: 0.98 }}
           >
             Back to overview
-          </button>
-          <button onClick={onRestart} className="primary-button">
+          </motion.button>
+          <motion.button
+            onClick={onRestart}
+            className="primary-button"
+            whileTap={{ scale: 0.98 }}
+          >
             Start over
-          </button>
+          </motion.button>
         </div>
 
         {allScores.length > 1 && (
           <div className="mt-8 pt-8 border-t border-[#555] flex justify-center flex-wrap gap-3">
-            <button
+            <motion.button
               onClick={() => setShowAnswersModal(true)}
-              className="results-button"
+              className="results-button py-2 text-sm"
+              whileTap={{ scale: 0.98 }}
             >
               View Answers
-            </button>
-            <button
+            </motion.button>
+            <motion.button
               onClick={() => setShowResultsModal(true)}
-              className="results-button"
+              className="results-button py-2 text-sm"
+              whileTap={{ scale: 0.98 }}
             >
               View all Results
-            </button>
+            </motion.button>
           </div>
         )}
 
         {allScores.length === 1 && answers.length > 0 && (
           <div className="mt-8 pt-8 border-t border-[#555] flex justify-center">
-            <button
+            <motion.button
               onClick={() => setShowAnswersModal(true)}
-              className="results-button"
+              className="results-button py-2 text-sm"
+              whileTap={{ scale: 0.98 }}
             >
               View Answers
-            </button>
+            </motion.button>
           </div>
         )}
 
-        {showAnswersModal && (
-          <AnswersModal
-            title={title}
-            answers={answers}
-            onClose={() => setShowAnswersModal(false)}
-          />
-        )}
+        <AnimatePresence mode="wait">
+          {showAnswersModal && (
+            <AnswersModal
+              title={title}
+              answers={answers}
+              onClose={() => setShowAnswersModal(false)}
+            />
+          )}
+        </AnimatePresence>
 
-        {showResultsModal && (
-          <ResultsModal
-            title={title}
-            scores={allScores}
-            onClose={() => setShowResultsModal(false)}
-          />
-        )}
-      </div>
+        <AnimatePresence mode="wait">
+          {showResultsModal && (
+            <ResultsModal
+              title={title}
+              scores={allScores}
+              onClose={() => setShowResultsModal(false)}
+            />
+          )}
+        </AnimatePresence>
+      </motion.div>
     </div>
   );
 }

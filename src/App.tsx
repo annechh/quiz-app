@@ -4,6 +4,7 @@ import QuizCard from './components/QuizCard';
 import ResultsModal from './components/ResultsModal';
 import { quizSets } from './data/quizSets';
 import { useQuizHistory } from './hooks/useQuizHistory';
+import { AnimatePresence, motion } from 'framer-motion';
 
 function App() {
   const [selectedQuizId, setSelectedQuizId] = useState<string | null>(null);
@@ -20,7 +21,13 @@ function App() {
   const resultQuiz = quizSets.find((quiz) => quiz.id === resultsQuizId) ?? null;
 
   return (
-    <main className="min-h-screen text-white p-6 flex items-center justify-center">
+    <motion.main
+      className="min-h-screen text-white p-6 flex items-center justify-center"
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      exit={{ opacity: 0 }}
+      transition={{ duration: 0.3 }}
+    >
       <section className="w-full max-w-7xl">
         <div className="mb-10 text-center">
           <p className="text-sm uppercase tracking-[0.35em] text-gray-400 mb-3">
@@ -45,15 +52,16 @@ function App() {
           ))}
         </div>
       </section>
-
-      {resultQuiz && (
-        <ResultsModal
-          title={resultQuiz.title}
-          scores={getScoresByQuiz(resultQuiz.id)}
-          onClose={() => setResultsQuizId(null)}
-        />
-      )}
-    </main>
+      <AnimatePresence mode="wait">
+        {resultQuiz && (
+          <ResultsModal
+            title={resultQuiz.title}
+            scores={getScoresByQuiz(resultQuiz.id)}
+            onClose={() => setResultsQuizId(null)}
+          />
+        )}
+      </AnimatePresence>
+    </motion.main>
   );
 }
 

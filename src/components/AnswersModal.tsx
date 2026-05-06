@@ -1,4 +1,5 @@
 import type { QuizAnswer } from '../types/quiz';
+import { motion } from 'framer-motion';
 import { useEscapeKey } from '../hooks/useEscapeKey';
 
 interface AnswersModalProps {
@@ -15,9 +16,13 @@ export default function AnswersModal({
   useEscapeKey(onClose);
 
   return (
-    <div
+    <motion.div
       onClick={onClose}
       className="fixed inset-0 bg-black/60 flex items-center justify-center p-4 z-50"
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      exit={{ opacity: 0 }}
+      transition={{ duration: 0.3 }}
     >
       <div
         onClick={(event) => event.stopPropagation()}
@@ -30,13 +35,13 @@ export default function AnswersModal({
             </p>
             <h3 className="text-2xl font-bold">{title}</h3>
           </div>
-          <button
+          <motion.button
             onClick={onClose}
             className="text-gray-300 hover:text-white transition-colors cursor-pointer"
-            aria-label="Close answers modal"
+            whileTap={{ scale: 0.98 }}
           >
             Close
-          </button>
+          </motion.button>
         </div>
 
         <ul className="max-h-[60vh] overflow-y-auto space-y-4 pr-1">
@@ -74,6 +79,6 @@ export default function AnswersModal({
           ))}
         </ul>
       </div>
-    </div>
+    </motion.div>
   );
 }
