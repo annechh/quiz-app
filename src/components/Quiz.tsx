@@ -1,9 +1,10 @@
 import { useState } from 'react';
 import QuizFinished from './QuizFinished';
 import ConfirmActionModal from './ConfirmActionModal';
+import QuizQuestionPanel from './QuizQuestionPanel';
 import type { QuizSet, QuizScore, QuizAnswer } from '../types/quiz';
 import { useQuizHistory } from '../hooks/useQuizHistory';
-import { AnimatePresence, motion } from 'framer-motion';
+import { motion } from 'framer-motion';
 
 interface QuizProps {
   quiz: QuizSet;
@@ -26,6 +27,8 @@ export default function Quiz({ quiz, onBack }: QuizProps) {
   const displayedScore =
     score + (isAnswered && selectedOption === question.correctAnswer ? 1 : 0);
   const hasStartedQuiz = answers.length > 0 || isAnswered;
+  const progressPercent =
+    ((currentIndex + (isAnswered ? 1 : 0)) / quiz.questions.length) * 100;
 
   function handleSelect(index: number) {
     if (isAnswered) return;
@@ -113,105 +116,20 @@ export default function Quiz({ quiz, onBack }: QuizProps) {
         transition={{ duration: 1 }}
         exit={{ opacity: 0 }}
       >
-        <div className="bg-dark-grey rounded-2xl p-8 max-w-lg w-full shadow-xl">
-          {/* Progress */}
-          <div className="flex justify-between text-sm text-gray-400 mb-4">
-            <span>
-              {quiz.title}: {currentIndex + 1} of {quiz.questions.length}
-            </span>
-            <span>Score: {displayedScore}</span>
-          </div>
-
-          {/* Progress bar */}
-          <div className="w-full bg-[#444] rounded-full h-2 mb-6">
-            <div
-              className="bg-green_1 h-2 rounded-full transition-all duration-300"
-              style={{
-                width: `${((currentIndex + (isAnswered ? 1 : 0)) / quiz.questions.length) * 100}%`,
-              }}
-            />
-          </div>
-
-          <AnimatePresence mode="wait">
-            <motion.div
-              key={currentIndex}
-              initial={{ opacity: 0, y: 16 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -16 }}
-            >
-              {/* Question */}
-              <div>
-                <h2 className="text-xl font-semibold mb-6">
-                  {question.question}
-                </h2>
-                {question.image && (
-                  <img
-                    src={question.image}
-                    alt="quiz image"
-                    className="w-full h-auto mb-6 rounded-xl"
-                  />
-                )}
-              </div>
-
-              {/* Options */}
-              <ul className="flex flex-col gap-3 mb-8">
-                {question.options.map((option, index) => {
-                  const style = isAnswered
-                    ? index === question.correctAnswer
-                      ? 'border-2 border-green_1 cursor-default'
-                      : index === selectedOption
-                        ? 'border-2 border-red_dark cursor-default'
-                        : 'border-2 border-[#555] bg-light-grey opacity-40 cursor-default'
-                    : 'border-2 border-[#555] bg-light-grey hover:bg-[#424242] cursor-pointer';
-
-                  return (
-                    <motion.li
-                      key={`${currentIndex}-${index}`}
-                      onClick={
-                        isAnswered ? undefined : () => handleSelect(index)
-                      }
-                      className={`rounded-xl px-4 py-3 transition-colors select-none ${style}`}
-                      initial={{ opacity: 0, y: 10 }}
-                      animate={{ opacity: 1, y: 0 }}
-                      exit={{ opacity: 0, y: -10 }}
-                      transition={{ delay: index * 0.06 }}
-                      whileTap={isAnswered ? undefined : { scale: 0.98 }}
-                    >
-                      {option}
-                    </motion.li>
-                  );
-                })}
-              </ul>
-            </motion.div>
-          </AnimatePresence>
-
-          {/* Next button */}
-          <div className="flex justify-end">
-            <motion.button
-              onClick={handleNext}
-              disabled={!isAnswered}
-              whileTap={isAnswered ? { scale: 0.98 } : undefined}
-              transition={{ duration: 0.25 }}
-              className={
-                isAnswered
-                  ? 'primary-button next-quiz-shake'
-                  : 'not-allowed-button'
-              }
-            >
-              {isLast ? 'Finish' : 'Next'}
-            </motion.button>
-          </div>
-
-          <div className="mt-4 flex justify-start">
-            <motion.button
-              onClick={handleBackClick}
-              className="text-sm text-gray-400 hover:text-white transition-colors cursor-pointer"
-              whileTap={{ scale: 0.98 }}
-            >
-              Back home
-            </motion.button>
-          </div>
-        </div>
+        <QuizQuestionPanel
+          quizTitle={quiz.title}
+          currentIndex={currentIndex}
+          totalQuestions={quiz.questions.length}
+          displayedScore={displayedScore}
+          progressPercent={progressPercent}
+          question={question}
+          isAnswered={isAnswered}
+          selectedOption={selectedOption}
+          isLast={isLast}
+          onSelectOption={handleSelect}
+          onNext={handleNext}
+          onBack={handleBackClick}
+        />
       </motion.div>
 
       <ConfirmActionModal
