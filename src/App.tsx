@@ -34,7 +34,7 @@ function App() {
           </p>
         </div>
 
-        <div className="grid gap-5 md:grid-cols-3">
+        <div className="grid md:grid-cols-2 xl:grid-cols-3 gap-5">
           {quizSets.map((quiz) => (
             <QuizCard
               key={quiz.id}
