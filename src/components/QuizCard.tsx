@@ -22,7 +22,7 @@ export default function QuizCard({
       : null;
 
   return (
-    <article className="text-left bg-dark-grey rounded-3xl p-6 shadow-xl hover:test hover:shadow-pink transition-all h-full flex flex-col gap-2.5">
+    <article className="text-left bg-dark-grey rounded-3xl p-6 shadow-xl lg:hover:shadow-pink transition-all h-full flex flex-col gap-2.5">
       <div className="flex flex-col flex-1/2 justify-between h-full">
         <div className="flex justify-between">
           <p className="text-sm text-pink-300 font-semibold mb-3">
